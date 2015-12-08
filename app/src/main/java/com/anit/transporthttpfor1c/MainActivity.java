@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 /**
- *Тест 2
+ *Тест 3
  */
 public class MainActivity extends AppCompatActivity {
 
