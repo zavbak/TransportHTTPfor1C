@@ -21,7 +21,7 @@ public interface ITransportFileForHTTP1C {
      * @param pass     Пароль
      * @return
      */
-    public String ExchengeFile1C(String pathFile, URL url, String user, String pass) throws IOException;
+    public String ExchengeFile1C() throws IOException;
 
 
 
