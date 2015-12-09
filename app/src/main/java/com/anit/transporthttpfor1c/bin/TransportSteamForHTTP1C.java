@@ -1,7 +1,9 @@
 package com.anit.transporthttpfor1c.bin;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,17 +15,21 @@ import java.util.Set;
 /**
  * Created by Александр on 09.12.2015.
  */
-public class TransportFileForHTTP1C implements ITransportFileForHTTP1C{
+public class TransportSteamForHTTP1C implements ITransportSteamForHTTP1C {
 
     /**
      * Поток для оттправки
      */
     FileInputStream outStream;
 
+    String pathOutFile;
+
     /**
      * Поток для получения
      */
     FileOutputStream inStream;
+
+    String pathInFile;
 
     /**
      * Путь к сервису
@@ -41,24 +47,54 @@ public class TransportFileForHTTP1C implements ITransportFileForHTTP1C{
     String user, password;
 
 
-    public TransportFileForHTTP1C(FileInputStream outStream, FileOutputStream inStream, URL url, Map<String, String> requestProperty, String user, String password) {
-        this.outStream = outStream;
+    public TransportSteamForHTTP1C(String pathOutFile, FileOutputStream inStream, URL url, Map<String, String> requestProperty, String user, String password) throws FileNotFoundException {
+
+
+        outStream = null;
+
         this.inStream  = inStream;
         this.url = url;
         this.requestProperty = requestProperty;
         this.user = user;
         this.password = password;
+
     }
 
 
 
 
     @Override
-    public FileOutputStream ExchengeFile1C() throws IOException {
+    public File ExchengeFile1C() {
 
-        HttpURLConnection connection = getConnection();
+        File fileOut = null;
 
-        DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+        HttpURLConnection connection = null;
+
+
+        try {
+            outStream = new FileInputStream(new File(pathOutFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+        try {
+            connection = getConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+        DataOutputStream outputStream = null;
+        try {
+            outputStream = new DataOutputStream(connection.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+
+
+        }
 
         // Считывание файла в оперативную память и запись его в соединение
         sendStream(outputStream);
@@ -71,17 +107,16 @@ public class TransportFileForHTTP1C implements ITransportFileForHTTP1C{
 
 
         // Считка ответа от сервера в зависимости от успеха
-        if(serverResponseCode != 200) {
-           throw new IOException("Ответ не 200");
+        if(serverResponseCode == 200) {
+            connection.connect();
+            fos = getStreamFromConnection(connection);
+
         }
 
+        outStream.close();
+        connection.disconnect();
 
-        connection.connect();
-
-
-
-
-        return getStreamFromConnection(connection);
+        return fos;
     }
 
 
