@@ -1,5 +1,7 @@
 package com.anit.transporthttpfor1c.bin;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -9,19 +11,17 @@ import java.net.URL;
 public interface ITransportFileForHTTP1C {
 
 
-    /**
-     * Обменяться с 1с файлами
-     * Возвращает в ответ путь к файлу ответа
-     * Запускать в отдельном потоке
+
+     /**
      *
-     *
-     * @param pathFile путь к файлу для передачи в 1С
-     * @param url      URL url = new URL(127.0.0.1/exServer/hs/Exchenge);
-     * @param user     Пользователь 1С
-     * @param pass     Пароль
      * @return
+     * @throws IOException
+      *
+      * Обменяться с 1с файлами
+      * Возвращает в ответ путь к файлу ответа
+      * Запускать в отдельном потоке
      */
-    public String ExchengeFile1C() throws IOException;
+    public FileOutputStream ExchengeFile1C() throws IOException;
 
 
 
