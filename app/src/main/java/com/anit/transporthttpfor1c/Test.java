@@ -61,7 +61,7 @@ public class Test extends AsyncTask<Void, Void, Void> {
 
                 ITransportSteamForHTTP1C transport = new TransportSteamForHTTP1C(fis,fos,url,param,user,pass);
 
-                fos = transport.ExchengeFile1C();
+                 fos = transport.ExchengeFile1C();
 
 
             } catch (FileNotFoundException e) {
