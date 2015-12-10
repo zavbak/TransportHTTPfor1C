@@ -15,7 +15,44 @@
         android:layout_height="wrap_content"
         android:text="@string/strExchange"
         android:id="@+id/btExchange"
+        android:layout_below="@+id/edOutText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/edOutText"
+        android:layout_alignEnd="@+id/edOutText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/edOutText"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvInText"
+        android:layout_below="@+id/btExchange"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btExchange"
+        android:layout_alignEnd="@+id/btExchange" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/btRead"
+        android:layout_below="@+id/tvInText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/tvInText"
+        android:layout_alignEnd="@+id/tvInText" />
+
 </RelativeLayout>
