@@ -96,6 +96,7 @@ public class TransportSteamForHTTP1C implements ITransportSteamForHTTP1C {
 
         }
 
+        /*
         // Считывание файла в оперативную память и запись его в соединение
         sendStream(outputStream);
 
@@ -116,7 +117,8 @@ public class TransportSteamForHTTP1C implements ITransportSteamForHTTP1C {
         outStream.close();
         connection.disconnect();
 
-        return fos;
+        */
+        return new File("");
     }
 
 

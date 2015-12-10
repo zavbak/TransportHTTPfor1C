@@ -39,6 +39,30 @@ public class Exchange1C {
     String password;
 
 
+    public void setParamReqest(Map<String, String> paramReqest) {
+        this.paramReqest = paramReqest;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPathOutFile(String pathOutFile) {
+        this.pathOutFile = pathOutFile;
+    }
+
+    public void setPathInFile(String pathInFile) {
+        this.pathInFile = pathInFile;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     public Boolean executeExchange(){
 
 
