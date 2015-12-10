@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         exchange.setPathOutFile(getFilesDir().getAbsolutePath() + File.separator + nameOutFile);
         exchange.setPathInFile(nameInFile);
 
-        //exchange.setUrl("http://10.0.2.2/exServer/hs/Exchange/");
-        exchange.setUrl("http://172.31.255.41/exServer/hs/Exchange");
+        exchange.setUrl("http://10.0.2.2/exServer/hs/Exchange/");
+        //exchange.setUrl("http://172.31.255.41/exServer/hs/Exchange");
 
         exchange.setUser("Гладких");
         exchange.setPassword("1234512345");
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        Test test = new Test(exchange);
+        Test test = new Test(exchange,this);
         test.execute();
 
 
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 executeExchange();
 
-                Toast.makeText(this,"Обмен выполнен",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Обмен запустили!",Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.btRead:

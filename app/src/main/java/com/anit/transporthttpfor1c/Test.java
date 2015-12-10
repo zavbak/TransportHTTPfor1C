@@ -2,6 +2,7 @@ package com.anit.transporthttpfor1c;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.anit.transporthttpfor1c.bin.Exchange1C;
 import com.anit.transporthttpfor1c.bin.ITransportSteamForHTTP1C;
@@ -28,9 +29,14 @@ public class Test extends AsyncTask<Void, Void, Void> {
 
 
     Exchange1C exchange;
+    Context context;
 
-    public Test(Exchange1C exchange) {
+    String message = "";
+
+    public Test(Exchange1C exchange,Context context) {
+
         this.exchange = exchange;
+        this.context = context;
     }
 
     @Override
@@ -43,11 +49,22 @@ public class Test extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
 
 
-        try {
-            exchange.executeExchange();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Boolean exchangeOK =  exchange.executeExchange();
+
+
+
+        if (exchangeOK){
+
+            message = "Обмен прошел!";
+
+        }else {
+
+            message = "Проблемы с обменом!";
+
         }
+
+
+
 
 
         return null;
@@ -56,6 +73,7 @@ public class Test extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
 
     }
 
