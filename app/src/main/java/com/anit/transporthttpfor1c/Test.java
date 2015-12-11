@@ -54,7 +54,7 @@ public class Test extends AsyncTask<Void, Void, Void> {
 
         if (exchangeOK){
 
-            message = "Обмен прошел!";
+            message = "Обмен прошел !";
 
         }else {
 
