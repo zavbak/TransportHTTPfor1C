@@ -1,6 +1,7 @@
 package com.anit.transporthttpfor1c;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,6 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public void setOutText(String str){
+
+        tvInText.setText(str);
+
+    }
+
+
     void executeExchange(){
 
 
@@ -58,47 +66,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          */
 
 
-        String nameOutFile = "outFileTo1c.json";
-
-
-
-
-
+        String nameOutFile = "to1C";
+        String nameInFile  = "from1C";
         String data = edOutText.getText().toString();
+
+
 
 
         FileOutputStream fos;
 
+        File fileTo1C = null;
+        File fileFrom1C = null;
+
         try {
-            fos = openFileOutput(nameOutFile,Context.MODE_PRIVATE); // открываем файл для записи
+
+            fileTo1C = File.createTempFile(nameOutFile, null, this.getExternalCacheDir());
+
+            fos = new FileOutputStream(fileTo1C); // открываем файл для записи
+
             fos.write(data.getBytes()); // записываем данные
             fos.close(); // закрываем файл
+
+
+
+
+            fileFrom1C = File.createTempFile(nameInFile, null, this.getExternalCacheDir());
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
         }
 
 
-        Exchange1C exchange = new Exchange1C();
-
-        exchange.setPathOutFile(getFilesDir().getAbsolutePath() + File.separator + nameOutFile);
-        exchange.setPathInFile(nameInFile);
-
-        exchange.setUrl("http://10.0.2.2/exServer/hs/Exchange/");
-        //exchange.setUrl("http://172.31.255.41/exServer/hs/Exchange");
-
-        exchange.setUser("Гладких");
-        exchange.setPassword("1234512345");
-
-
         Map<String, String> requestProperty = new HashMap<String, String>();
         requestProperty.put("file", "test.txt");
         requestProperty.put("android", "exit");
 
+
+
+
+        Exchange1C exchange = new Exchange1C();
+
+        exchange.setTo1C(fileTo1C);
+
+        exchange.setFrom1C(fileFrom1C);
+
+        //exchange.setUrl("http://10.0.2.2/exServer/hs/Exchange/");
+        exchange.setUrl("http://172.31.255.41/exServer/hs/Exchange");
+
+        exchange.setUser("Гладких");
+        exchange.setPassword("1234512345");
+
         exchange.setRequestProperty(requestProperty);
-
-        exchange.setContext(this);
-
 
 
         Test test = new Test(exchange,this);
@@ -144,6 +165,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 tvInText.setText(content);
+
+
+                String state = Environment.getExternalStorageState();
+                Toast.makeText(this,state,Toast.LENGTH_SHORT).show();
+
+
+                File file;
+                try
+                {
+                    String fileName = "from1c";
+                    file = File.createTempFile(fileName, null, this.getExternalCacheDir());
+
+                    FileOutputStream fos = new FileOutputStream(file);
+                    fos.write(fileName.getBytes());
+                    fos.close();
+                }
+                catch (IOException e)
+                {
+
+                }
+
 
 
 

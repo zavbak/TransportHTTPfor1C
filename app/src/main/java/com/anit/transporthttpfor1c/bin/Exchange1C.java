@@ -5,7 +5,6 @@ import android.content.Context;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,18 +18,17 @@ import java.util.Set;
  */
 public class Exchange1C {
 
-    Context context;
-
 
     /**
-     * Путь к файлу для отправки
+     * Файл на отдачу
      */
-    String pathOutFile;
+    File to1C;
 
     /**
-     * Путь к файлу на получение
+     * Файл на прием
      */
-    String pathInFile;
+    File from1C;
+
 
     /**
      * Адрес HTTP сервиса
@@ -53,6 +51,9 @@ public class Exchange1C {
     String password;
 
 
+    String METOD_POST = "POST";
+
+
     public void setRequestProperty(Map<String, String> requestProperty) {
         this.requestProperty = requestProperty;
     }
@@ -61,12 +62,8 @@ public class Exchange1C {
         this.password = password;
     }
 
-    public void setPathOutFile(String pathOutFile) {
-        this.pathOutFile = pathOutFile;
-    }
-
-    public void setPathInFile(String pathInFile) {
-        this.pathInFile = pathInFile;
+    public void setFrom1C(File from1C) {
+        this.from1C = from1C;
     }
 
     public void setUrl(String url) {
@@ -78,14 +75,19 @@ public class Exchange1C {
     }
 
 
-    public void setContext(Context context) {
-        this.context = context;
+    public void setTo1C(File to1C) {
+        this.to1C = to1C;
     }
 
-    public Context getContext() {
-        return context;
+    public File getFrom1C() {
+        return from1C;
     }
 
+
+    /**
+     * Запускаем обмен
+     * @return
+     */
     public Boolean executeExchange() {
 
         DataOutputStream outputStream = null;
@@ -111,7 +113,7 @@ public class Exchange1C {
             connection.setUseCaches(false);
 
             // Задание запросу типа POST
-            connection.setRequestMethod("POST");
+            connection.setRequestMethod(METOD_POST);
 
 
             Set<Map.Entry<String, String>> set = requestProperty.entrySet();
@@ -139,14 +141,11 @@ public class Exchange1C {
                 e.printStackTrace();
 
 
-
             }
 
             return false;
 
         }
-
-
 
 
         try {
@@ -214,7 +213,7 @@ public class Exchange1C {
 
         /*
 
-        ПРИНЕСАЕМ ФАЙЛ
+        ПИШЕМ ФАЙЛ
 
          */
 
@@ -271,8 +270,8 @@ public class Exchange1C {
 
 
         try {
-            fos = context.openFileOutput(pathInFile, Context.MODE_PRIVATE); // открываем файл для записи
 
+            fos = new FileOutputStream(from1C);
 
             int downloadedSize = 0;
             byte[] buffer = new byte[1024];
@@ -306,6 +305,7 @@ public class Exchange1C {
 
     }
 
+
     /**
      * Файл в поток
      *
@@ -321,7 +321,7 @@ public class Exchange1C {
         // Поток для считывания файла в оперативную память
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream(new File(pathOutFile));
+            fis = new FileInputStream(to1C);
 
             bytesAvailable = fis.available();
             bufferSize = Math.min(bytesAvailable, maxBufferSize);

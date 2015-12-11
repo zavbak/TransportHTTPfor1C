@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class Test extends AsyncTask<Void, Void, Void> {
 
 
-
     Exchange1C exchange;
     Context context;
 
@@ -74,6 +73,31 @@ public class Test extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+
+
+        FileInputStream fis;
+        String content = "";
+        try {
+            fis = new FileInputStream(exchange.getFrom1C());  // открываем файл для чтения
+
+            byte[] input = new byte[fis.available()];
+            while (fis.read(input) != -1) {
+                content += new String(input);
+            }
+            fis.close();
+
+            MainActivity mainActivity = (MainActivity) context;
+
+            mainActivity.setOutText(content);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
 
     }
 
