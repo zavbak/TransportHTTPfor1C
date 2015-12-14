@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         exchange.setFrom1C(fileFrom1C);
 
-        //exchange.setUrl("http://10.0.2.2/exServer/hs/Exchange/");
-        exchange.setUrl("http://172.31.255.41/exServer/hs/Exchange");
+        exchange.setUrl("http://10.0.2.2/exServer/hs/Exchange/");
+        //exchange.setUrl("http://172.31.255.41/exServer/hs/Exchange");
 
         exchange.setUser("Гладких");
         exchange.setPassword("1234512345");
